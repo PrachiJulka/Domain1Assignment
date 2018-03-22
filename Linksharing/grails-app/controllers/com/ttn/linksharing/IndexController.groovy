@@ -8,7 +8,7 @@ class IndexController {
         log.println("hi")
         log.trace('Hello')
 
-        return index()
+
 
     }
 }
