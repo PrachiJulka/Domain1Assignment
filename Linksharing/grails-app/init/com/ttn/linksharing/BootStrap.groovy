@@ -12,11 +12,15 @@ class BootStrap {
         user.lastUpdated
         user.dateCreated
 
-        Topic topic=new Topic()
+        Topic topic = new Topic(name:"sd",password:"asdasd",visibility: Visibility.PUBLIC)
+        user.addToTopics(topic)
+
+
+      /*  Topic topic=new Topic()
         topic.user=user
         topic.name="topic"
         topic.visibility=Visibility.PRIVATE
-
+*/
        /* Topic topic1=new Topic()*/
        /* topic1.name="topic"*/
        /* topic1.user=user*/
@@ -33,8 +37,8 @@ class BootStrap {
 */
 
 
-        user.addToTopic(topic)
-       /* user.addToTopic(topic1)*/
+      /*  user.addToTopic(topic)
+      */ /* user.addToTopic(topic1)*/
         user.validate()
         println(user.errors.allErrors)
         println user.save()

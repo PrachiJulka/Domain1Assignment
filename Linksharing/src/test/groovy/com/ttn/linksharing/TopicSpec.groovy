@@ -1,49 +1,65 @@
 package com.ttn.linksharing
 
+import grails.test.hibernate.HibernateSpec
 import grails.testing.gorm.DomainUnitTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import spock.lang.Specification
 
-class TopicSpec extends Specification implements DomainUnitTest<Topic> {
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "test something"() {
-        expect:"fix me"
-            false == false
-    }
+class TopicSpec extends Specification implements DomainUnitTest<Topic,User> {
 
     def "Topic name should be unique per user"() {
-
         setup:
-        String email="prachi@gmail.com"
-        User user =new User(email: email,userName:"prachiJ",password:"p12345", firstName: "Prachi", lastName: "Julka",admin:false,active:true)
+        String email = "prachijulka@tothenew.com"
+        String password = 'p1231'
+        User user = new User(email: email,userName:"prachiJ",password:password, firstName: "Prachi", lastName: "Julka",admin:false,active:true)
 
         when:
-        Topic topic=new Topic(name: "topic",createdBy:user,Visibility:Visibility.PRIVATE )
-        user.addToTopics(topic)
-       // user.save(flush:true)
-       /* then:
-        user.count() == 1
+        Topic topic = new Topic()
+        topic.createdBy = user
+        topic.name = "topic"
+        topic.metaClass.getCreatedBy ={
+            user
+        }
+        topic.visibility = Visibility.PRIVATE
+        topic.save()
 
-        when:
-       */
-        Topic topic1=new Topic(name: "topic",createdBy:user,Visibility:Visibility.PUBLIC )
-        user.addToTopics(topic1)
-
-        topic1.validate()
-        user.save(flush:true)
-
+        Topic topic1 = new Topic() 
+        topic1.name = "topic"
+        topic1.createdBy = user
+        topic1.visibility = Visibility.PUBLIC
+        topic1.save()
 
         then:
-        List<Topic> t1 = Topic.findAllByName("topic");
-        Topic.count() == 1
-        topic1.errors.hasErrors()==true
-        topic1.errors.allErrors.size() == 1
+        topic1.errors.hasErrors()
+    }
+
+
+    def "Topic name should not be null or blank"(){
+        setup:
+
+        String email = "prachijulka@tothenew.com"
+        String password = 'p1231'
+        User user = new User(email: email,userName:"prachiJ",password:password, firstName: "Prachi", lastName: "Julka",admin:false,active:true)
+
+        when:
+        Topic topic = new Topic(name:"sd",visibility: Visibility.PUBLIC,createdBy: user)
+        user.addToTopics(topic)
+        user.save()
+//
+        then:
+       // println("ok")
+       user.errors.hasErrors() == true
+/*
+       when:
+        Topic topic1 = new Topic(name: null,createdBy: user,visibility: Visibility.PUBLIC)
+        user.addToTopics(topic1)
+        user.save()
+
+        then:
+        user.errors.hasErrors() == true
+*/
 
 
     }
+
 }

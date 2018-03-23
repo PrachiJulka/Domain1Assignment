@@ -2,6 +2,7 @@ package com.ttn.linksharing
 
 class UrlMappings {
 
+    HashMap msp;
     static mappings = {
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
