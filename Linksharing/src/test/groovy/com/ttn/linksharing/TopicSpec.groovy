@@ -5,7 +5,7 @@ import grails.testing.gorm.DomainUnitTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import spock.lang.Specification
 
-class TopicSpec extends Specification implements DomainUnitTest<Topic,User> {
+class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
     def "Topic name should be unique per user"() {
         setup:
