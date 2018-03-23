@@ -1,12 +1,19 @@
 package com.ttn.linksharing
 
 import grails.test.hibernate.HibernateSpec
-import grails.testing.gorm.DomainUnitTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import spock.lang.Specification
 
-class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
+class TopicSpec extends HibernateSpec{
+    def setup() {
+    }
+
+    def cleanup() {
+    }
+
+    void "test something"() {
+        expect:"fix me"
+        false == false
+    }
     def "Topic name should be unique per user"() {
         setup:
         String email = "prachijulka@tothenew.com"
@@ -17,24 +24,24 @@ class TopicSpec extends Specification implements DomainUnitTest<Topic> {
         Topic topic = new Topic()
         topic.createdBy = user
         topic.name = "topic"
-        topic.metaClass.getCreatedBy ={
-            user
-        }
+
         topic.visibility = Visibility.PRIVATE
-        topic.save()
+        user.addToTopics(topic)
+        user.save(flush:true)
 
         Topic topic1 = new Topic() 
         topic1.name = "topic"
         topic1.createdBy = user
         topic1.visibility = Visibility.PUBLIC
-        topic1.save()
+        user.addToTopics(topic1)
+        user.validate()
 
         then:
-        topic1.errors.hasErrors()
+       user.errors.hasErrors()==true
     }
 
 
-    def "Topic name should not be null or blank"(){
+ /*   def "Topic name should not be null or blank"(){
         setup:
 
         String email = "prachijulka@tothenew.com"
@@ -49,7 +56,7 @@ class TopicSpec extends Specification implements DomainUnitTest<Topic> {
         then:
        // println("ok")
        user.errors.hasErrors() == true
-/*
+*//*
        when:
         Topic topic1 = new Topic(name: null,createdBy: user,visibility: Visibility.PUBLIC)
         user.addToTopics(topic1)
@@ -57,9 +64,9 @@ class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
         then:
         user.errors.hasErrors() == true
-*/
+*//*
 
 
-    }
+    }*/
 
 }
