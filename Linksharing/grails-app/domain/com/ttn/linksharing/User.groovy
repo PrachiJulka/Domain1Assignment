@@ -21,6 +21,9 @@ class User {
     boolean active
     Date dateCreated
     Date lastUpdated
+    List<Topic> topics
+
+    static hasMany = [topics:Topic,subscriptions:Subscription,resources:Resource]
 
     static constraints = {
         email(unique: true,email: true,blank: false,nullable: false)
