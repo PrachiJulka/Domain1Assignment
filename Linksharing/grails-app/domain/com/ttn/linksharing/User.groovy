@@ -21,8 +21,11 @@ class User {
     boolean active
     Date dateCreated
     Date lastUpdated
+
+    String name
     //List<Topic> topics
 
+    static transients = ['name']
     static hasMany = [topics:Topic,subscriptions:Subscription,resources:Resource]/*,subscriptions:Subscription,resources:Resource*/
 
     static constraints = {
