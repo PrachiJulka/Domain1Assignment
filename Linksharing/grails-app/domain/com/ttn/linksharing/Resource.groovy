@@ -5,8 +5,8 @@ abstract class Resource {
     String description
     Date dateCreated
     Date lastUpdated
-    static hasMany = [createdBy:User, topics:Topic]
-    static constraints = {
+    static belongsTo = [user:User,topic:Topic]
+    static constraints ={
         description(type:'text')
     }
 }

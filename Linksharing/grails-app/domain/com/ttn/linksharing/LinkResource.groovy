@@ -4,8 +4,7 @@ class LinkResource extends Resource {
 
     String url
 
-    static hasMany = [subordinates: Resource]
     static constraints = {
-        url(url: true)
+        url(url: true,nullable:false,blank: false)
     }
 }
