@@ -58,7 +58,8 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:2.47.1"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-
+   /* testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.0.1.RELEASE'
+   */ /*testCompile "org.grails:grails-test-mixins:3.3.0"*/
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 
 }

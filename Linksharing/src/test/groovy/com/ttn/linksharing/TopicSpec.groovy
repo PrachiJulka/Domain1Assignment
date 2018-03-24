@@ -1,10 +1,15 @@
 package com.ttn.linksharing
 
-import grails.test.hibernate.HibernateSpec
+import grails.testing.gorm.DomainUnitTest
+
+import spock.lang.Specification
 
 
-class TopicSpec extends HibernateSpec{
+
+
+class TopicSpec extends Specification implements DomainUnitTest<Topic>{
     def setup() {
+        mockDomain User
     }
 
     def cleanup() {
@@ -26,6 +31,7 @@ class TopicSpec extends HibernateSpec{
         topic.name = "topic"
 
         topic.visibility = Visibility.PRIVATE
+      //  topic.save(flush:true)
         user.addToTopics(topic)
         user.save(flush:true)
 
@@ -37,13 +43,14 @@ class TopicSpec extends HibernateSpec{
         user.validate()
 
         then:
-       user.errors.hasErrors()==true
+        user.errors.hasErrors()==true
+
     }
 
 
- /*   def "Topic name should not be null or blank"(){
-        setup:
+    def "Topic name should not be null or blank"(){
 
+        setup:
         String email = "prachijulka@tothenew.com"
         String password = 'p1231'
         User user = new User(email: email,userName:"prachiJ",password:password, firstName: "Prachi", lastName: "Julka",admin:false,active:true)
@@ -51,22 +58,73 @@ class TopicSpec extends HibernateSpec{
         when:
         Topic topic = new Topic(name:"sd",visibility: Visibility.PUBLIC,createdBy: user)
         user.addToTopics(topic)
-        user.save()
-//
+        user.save(flush:true)
+
         then:
-       // println("ok")
-       user.errors.hasErrors() == true
-*//*
-       when:
+        Topic.count==1
+
+        when:
         Topic topic1 = new Topic(name: null,createdBy: user,visibility: Visibility.PUBLIC)
         user.addToTopics(topic1)
-        user.save()
+       // user.validate()
+        topic1.validate()
+        user.save(flush:true)
+
+
 
         then:
+     //   topic1.errors.getFieldErrorCount('name')==1
+        topic1.errors.getFieldErrorCount('name')==1
         user.errors.hasErrors() == true
-*//*
 
 
-    }*/
+
+        when:
+        Topic topic2 = new Topic(name: "",createdBy: user,visibility: Visibility.PUBLIC)
+        user.addToTopics(topic1)
+        // user.validate()
+        topic2.validate()
+        user.save(flush:true)
+
+
+
+        then:
+        //   topic1.errors.getFieldErrorCount('name')==1
+        topic2.errors.getFieldErrorCount('name')==1
+        user.errors.hasErrors() == true
+
+
+    }
+
+    def "Visiblity of topic should not be null"(){
+
+        given:
+        String email = "prachijulka@tothenew.com"
+        String password = 'p1231'
+        User user = new User(email: email,userName:"prachiJ",password:password, firstName: "Prachi", lastName: "Julka",admin:false,active:true)
+
+        when:
+        Topic topic=new Topic(name:"topic",createdBy: user,visibility:null)
+        user.addToTopics(topic)
+        topic.validate()
+        user.save()
+        then:
+        topic.errors.getFieldErrorCount('visibility')==1
+        user.errors.hasErrors()==true
+    }
+
+    def "Created by should not be null"(){
+
+
+        when:
+        Topic topic=new Topic (name:"topic",createdBy: null,visibility: Visibility.PUBLIC)
+        topic.validate()
+        topic.save()
+
+        then:
+        topic.errors.getFieldErrorCount('createdBy')
+        topic.errors.hasErrors()==true
+
+    }
 
 }

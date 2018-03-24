@@ -19,14 +19,11 @@ class Topic {
     Date dateCreated
     Date lastUpdated
     Visibility visibility
-    User createdBy
     static belongsTo = [ createdBy : User]
-    /*static hasMany = [subscriptions:Subscription, resources:Resource]
-*/
+   // static hasMany = [subscriptions:Subscription, resources:Resource]
     static constraints = {
         name(blank: false, nullable: false, unique: 'createdBy')
         visibility(nullable: false)
-
     }
 
 
