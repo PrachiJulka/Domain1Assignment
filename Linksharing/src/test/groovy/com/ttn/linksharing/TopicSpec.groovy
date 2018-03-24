@@ -8,6 +8,7 @@ import spock.lang.Specification
 
 
 class TopicSpec extends Specification implements DomainUnitTest<Topic>{
+
     def setup() {
         mockDomain User
     }
