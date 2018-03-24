@@ -3,7 +3,7 @@ package com.ttn.linksharing
 class DocumentResource extends Resource {
     String url
 
-    static hasMany = [subordinates: Resource]
+    
     static constraints = {
     }
 }
