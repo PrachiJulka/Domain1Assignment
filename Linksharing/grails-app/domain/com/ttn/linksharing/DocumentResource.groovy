@@ -4,7 +4,7 @@ class DocumentResource extends Resource {
 
     String filePath
 
-    static hasMany = [subordinates: Resource]
+    
     static constraints = {
     }
 }
