@@ -68,7 +68,7 @@ dependencies {
     bootRun {
         jvmArgs('-Dspring.output.ansi.enabled=always')
         addResources = true
-        systemProperty 'server.port', '8440'
+        systemProperty 'server.port', '8490'
         String springProfilesActive = 'spring.profiles.active'
         systemProperty springProfilesActive, System.getProperty(springProfilesActive)
     }

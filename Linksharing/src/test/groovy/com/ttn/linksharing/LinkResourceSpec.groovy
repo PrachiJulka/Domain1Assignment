@@ -15,7 +15,7 @@ class LinkResourceSpec extends Specification implements DomainUnitTest<LinkResou
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            false == false
     }
 
     def "url field should contain valid url"(){

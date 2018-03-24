@@ -15,7 +15,12 @@ class BootStrap {
         Topic topic = new Topic(name:"sd",password:"asdasd",visibility: Visibility.PUBLIC)
         user.addToTopics(topic)
 
-
+     /*   Resource resource=new LinkResource(url: "www.google.com",description: "anjsncd",user:user,topic:topic)
+        topic.addToResources(resource)
+        user.addToResources(resource)
+        user.save(flush:true)
+        ResourceRating resourceRating=new ResourceRating(score: 0,user:user,resource:resource)
+*/
       /*  Topic topic=new Topic()
         topic.user=user
         topic.name="topic"
@@ -39,9 +44,12 @@ class BootStrap {
 
       /*  user.addToTopic(topic)
       */ /* user.addToTopic(topic1)*/
-        user.validate()
-        println(user.errors.allErrors)
-        println user.save()
+       /* resource.addToResourceRating(resourceRating)
+        user.addToResourceRating(resourceRating)
+        resourceRating.validate()
+        resourceRating.save(flush:true)
+        //user.validate()
+        println(resourceRating.errors.allErrors)*/
     }
     def destroy = {
     }

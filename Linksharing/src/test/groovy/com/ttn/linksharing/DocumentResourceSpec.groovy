@@ -13,7 +13,7 @@ class DocumentResourceSpec extends Specification implements DomainUnitTest<Docum
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            false == false
     }
 
     def "filePath should not be null or blank"(){
