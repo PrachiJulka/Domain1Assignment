@@ -122,21 +122,23 @@ class ResourceRatingSpec extends Specification implements DomainUnitTest<Resourc
         User user = new User(email: email,userName:"prachiJ",password:password, firstName: "Prachi", lastName: "Julka",admin:false,active:true)
         Topic topic = new Topic(name:"sd",visibility: Visibility.PUBLIC,createdBy: user)
         Resource resource=new LinkResource(url:"www.yahoo.com",description: "abhabhab",user: user,topic: topic)
-
         when:
         ResourceRating resourceRating1=new ResourceRating(score:2,user: user,resource:resource)
-        resource.addToResourceRating(resourceRating1)
-        resourceRating1.validate()
-        resourceRating1.save()
-        resource.save(flush:true)
+         resource.addToResourceRating(resourceRating1)
+        resource.save()
+        user.addToResourceRating(resourceRating1)
         user.save(flush:true)
         ResourceRating resourceRating2=new ResourceRating(score:3,user:user,resource: resource)
-       resource.addToResourceRating(resourceRating2)
+        resource.addToResourceRating(resourceRating2)
+        resource.save()
+        user.addToResourceRating(resourceRating2)
+        user.save(flush:true)
         resourceRating2.validate()
         resourceRating2.save()
 
         then:
-       resourceRating2.errors.getFieldErrorCount('user')==1
+        resource.errors.hasErrors()==true
+        user.errors.hasErrors()==true
         resourceRating2.errors.hasErrors()==true
 
     }
